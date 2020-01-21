@@ -8,7 +8,7 @@ const GitHub = require('github-api')
 const writeFileAsync = util.promisify(fs.writeFile);
 
 inquirer
- .prompt([
+.prompt([
       {
         type: "input",
         name: "color",
@@ -24,22 +24,29 @@ inquirer
 .then((res) => {
     var gh = new GitHub()
     let user = gh.getUser(res.username);
-    user.getProfile((err, repo) => {
-        console.log(repo.avatar_url)
-        console.log(repo.login)
-        console.log(repo.url)
-        console.log(repo.blog)
-        console.log(repo.public_repos)
-        console.log(repo.followers)
-        console.log(repo.following)
-        console.log(repo.location)
-    })
+    let userInfo = user.getProfile((err, repo) => {repo})
+     return userInfo
+ 
 
-    user.listStarredRepos((err, repo) => {
-    console.log(repo.length)
-    })
+})
+
+
+.then((repos) => {
+  
+    const htmlInfo = new Array()
+        htmlInfo['avatar'] = repos.data.avatar_url
+        htmlInfo['url'] = repos.data.url
+        htmlInfo['info'] = repos.data.blog
+        htmlInfo['repoNum'] = repos.data.public_repos
+        htmlInfo['followers'] = repos.data.followers
+        htmlInfo['following'] = repos.data.following
+        htmlInfo['location'] = repos.data.location
+      
+    
+    return htmlInfo
 })
 
 .then((res) => {
-    console.log(res)
+     //console.log(res.repoNum)
+     console.log(res)
 })
