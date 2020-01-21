@@ -26,15 +26,32 @@ inquirer
 
     let user = gh.getUser(res.username);
     
-    let userInfo = user.getProfile((err, repo) => {repo})
+    //let userInfo = user.getProfile((err, repo) => repo)
     
     //let numstars = user.listStarredRepos((err, repos) => repos.length())
 
-    return userInfo
+    return user
 })
 
+.then( async(user) => {
+    let userInfo = await user.getProfile((err, repo) => repo)
+    const callback = await [user, userInfo]
+    return callback
+})
+
+.then(async(user) => {
+  
+    const stars = await user[0].listStarredRepos((err, repos) => repos)
+    const numstars =  await stars.length
+    await console.log(numstars)
+})
+
+
+
+
+
 .then((repos) => {
-   
+    console.log(repos)
     const htmlInfo = [{
         avatar: repos.data.avatar_url,
         userName: repos.data.login,
@@ -141,7 +158,7 @@ inquirer
 })
 
 .then((html) => {
-    console.log(html)
+   // console.log(html)
     fs.writeFile("index.html", html, function(err) {
 
         if (err) {
