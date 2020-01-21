@@ -22,7 +22,7 @@ inquirer
 ])
 
 .then((res) => {
-    let gh = new GitHub()
+    const gh = new GitHub()
 
     let user = gh.getUser(res.username);
     
@@ -34,16 +34,22 @@ inquirer
 })
 
 .then( async(user) => {
+    //console.log(user)
     let userInfo = await user.getProfile((err, repo) => repo)
-    const callback = await [user, userInfo]
+    const callback = await [user, userInfo.data]
     return callback
 })
 
 .then(async(user) => {
-  
-    const stars = await user[0].listStarredRepos((err, repos) => repos)
-    const numstars =  await stars.length
-    await console.log(numstars)
+    let starnum
+    //console.log(user)
+    await user[0].listStarredRepos((err, repo) => {
+              starnum = repo.length 
+    })
+    const callback2 = await [user, starnum]
+    
+    return callback2
+     
 })
 
 
@@ -51,17 +57,17 @@ inquirer
 
 
 .then((repos) => {
-    console.log(repos)
+    console.log(repos[0])
     const htmlInfo = [{
-        avatar: repos.data.avatar_url,
-        userName: repos.data.login,
-        url: repos.data.url,
-        blog: repos.data.blog,
-        repoNum: repos.data.public_repos,
-        followers: repos.data.followers,
-        following: repos.data.following,
-        location: repos.data.location,
-      
+        avatar: repos.avatar_url,
+        userName: repos.login,
+        url: repos.url,
+        blog: repos.blog,
+        repoNum: repos.public_repos,
+        followers: repos.followers,
+        following: repos.following,
+        location: repos.location,
+        //stars: repos[[1]]
     }]
     
     return htmlInfo
@@ -71,7 +77,7 @@ inquirer
 
 .then((res) => {
     
-   
+  
     const html = `
     <!DOCTYPE html>
 <html lang="en">
