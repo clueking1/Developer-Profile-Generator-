@@ -50,9 +50,11 @@ inquirer
     return htmlInfo
 })
 
+
+
 .then((res) => {
     
-    console.log(res)
+   
     const html = `
     <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +68,7 @@ inquirer
   <div class="wholeCard">
       <div class="imgDiv">
         
-        <img src="${res.avatar}" class="img">
+        <img src="${res[0].avatar}" class="img">
      
       </div>  
      
@@ -74,7 +76,7 @@ inquirer
         
         <h2 class="userHead">Username</h2>
         
-        <div class="userName">${res.userName}</div>
+        <div class="userName">${res[0].userName}</div>
      
       </div>  
 
@@ -83,7 +85,7 @@ inquirer
               
               <h3 class="github">Github</h3>
               
-              <div class="gitUrl">${res.url}</div>
+              <div class="gitUrl">${res[0].url}</div>
 
           </div>
 
@@ -91,7 +93,7 @@ inquirer
               
             <h3 class="blog">Blog</h3>
             
-            <div class="blogUrl">${res.blog}</div>
+            <div class="blogUrl">${res[0].blog}</div>
 
           </div>
 
@@ -99,7 +101,7 @@ inquirer
                 
             <h3 class="locationHead">Location</h3>
             
-            <div class="location">${res.location}</div>
+            <div class="location">${res[0].location}</div>
 
           </div>
        
@@ -109,17 +111,17 @@ inquirer
 
         <div class="repoNumDiv">
           <h3 class="repoNumHead">Repositories</h3>
-          <div class="reponum">${res.repoNum}</div>
+          <div class="reponum">${res[0].repoNum}</div>
         </div>
 
         <div class="followersDiv">
           <h3 class="folowersHead">Followers</h3>
-          <div class="followersnum">${res.followers}</div>
+          <div class="followersnum">${res[0].followers}</div>
         </div>
 
         <div class="followingDiv">
           <h3 class="folowingHead">Following</h3>
-          <div class="followingnum">${res.following}</div>
+          <div class="followingnum">${res[0].following}</div>
         </div>
 
         <div class="starDiv">
@@ -139,7 +141,15 @@ inquirer
 })
 
 .then((html) => {
-    //console.log(html)
-    writeFile("index.html", html);
+    console.log(html)
+    fs.writeFile("index.html", html, function(err) {
+
+        if (err) {
+          return err;
+        }
+      
+        console.log("Success!");
+      
+      });
 })
 
