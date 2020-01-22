@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700,800&display=swap');
+.wholeCard {
+    position: relative;
+    border: 2px groove grey;
+    width: 650px;
+    padding: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: #eaecec;
+    font-family: 'Nunito', sans-serif;
+    color: #2e3942;
+}
+
+
+.imgDiv {
+  
+    width: 200px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.img {
+    border-radius: 50%;
+}
+
+.userDiv {
+  
+    width: 600px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.userHead {
+    text-decoration: underline;
+}
+
+.linkDiv {
+
+    width: 600px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.link1 {
+    width: 300px;
+    float: left;
+}
+.link2 {
+    width: 300px;
+    float: left;
+}
+
+.github {
+    border: 2px groove grey;
+    border-right: none;
+    padding: 5px;
+    box-shadow: 20px 20px 20px -13px dimgrey;
+}
+
+.blog {
+    border: 2px groove grey;
+    padding: 5px;
+    box-shadow: 20px 20px 20px -13px dimgrey;
+}
+
+.miscDiv {
+
+    width: 600px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    clear: both;
+     padding: 10px;
+}
+
+ .repoNumDiv{
+    width: 150px;
+    float: left;
+}
+
+ .followersDiv{
+    width: 150px;
+    float: left;
+}
+ .followingDiv{
+    width: 150px;
+    float: left;
+}
+
+ .starDiv{
+    width: 150px;
+    float: left;
+}
+
+.repoNumHead {
+    border: 2px groove grey;
+    border-right: none;
+    padding: 5px;
+       box-shadow: 20px 20px 20px -13px #69696954;
+}
+.folowersHead {
+    border: 2px groove grey;
+    border-right: none;
+    padding: 5px;
+       box-shadow: 20px 20px 20px -13px #69696954;
+}
+
+.folowingHead {
+    border: 2px groove grey;
+    border-right: none;
+    padding: 5px;
+      box-shadow: 20px 20px 20px -13px #69696954;
+}
+
+.starHead {
+    border: 2px groove grey;
+
+    padding: 5px;
+    box-shadow: 20px 20px 20px -13px #69696954;
+}
+
+.map {
+    
+    width: 600px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    clear: both;
+    padding: 8px;
+     
+}
+.locationHead {
+    border: 2px groove grey;
+    border-bottom: none;
+    width: 590px;
+    padding: 5px;
+    box-shadow: 20px 20px 20px -13px dimgrey;
+}
+
+.map img {
+    border: 2px groove grey;
+     box-shadow: 20px 20px 20px -13px dimgrey;
+    margin: -20px auto;
+    margin-bottom: 0px;
+}

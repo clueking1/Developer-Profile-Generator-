@@ -24,7 +24,9 @@ inquirer
 .then((res) => {
     
     const gh = new GitHub()
+    
     let color = res.color
+    
     let user = gh.getUser(res.username);
 
     return [user, color]
@@ -32,7 +34,7 @@ inquirer
   })
 
 .then( async(user) => {
-    //console.log(user[0])
+   
     let userInfo = await user[0].getProfile((err, repo) => repo)
     
     const callback = [user, userInfo.data]
@@ -57,11 +59,8 @@ inquirer
   })
 
 
-
-
-
 .then((repos) => {
-    console.log(repos)
+
     const htmlInfo = [{
         avatar: repos[0][1].avatar_url,
         userName: repos[0][1].login,
