@@ -4,8 +4,8 @@ const util = require("util");
 const GitHub = require('github-api')
 
 
+var color 
 
-const writeFileAsync = util.promisify(fs.writeFile);
 
 inquirer
 .prompt([
@@ -22,56 +22,62 @@ inquirer
 ])
 
 .then((res) => {
+    
     const gh = new GitHub()
-
+    let color = res.color
     let user = gh.getUser(res.username);
-    
-    //let userInfo = user.getProfile((err, repo) => repo)
-    
-    //let numstars = user.listStarredRepos((err, repos) => repos.length())
 
-    return user
-})
+    return [user, color]
+
+  })
 
 .then( async(user) => {
-    //console.log(user)
-    let userInfo = await user.getProfile((err, repo) => repo)
-    const callback = await [user, userInfo.data]
+    //console.log(user[0])
+    let userInfo = await user[0].getProfile((err, repo) => repo)
+    
+    const callback = [user, userInfo.data]
+    
     return callback
-})
+
+  })
 
 .then(async(user) => {
-    let starnum
-    //console.log(user)
-    await user[0].listStarredRepos((err, repo) => {
+  
+  let starnum
+
+    await user[0][0].listStarredRepos((err, repo) => {
               starnum = repo.length 
     })
-    const callback2 = await [user, starnum]
+    
+    const callback2 = [user, starnum]
     
     return callback2
      
-})
+
+  })
 
 
 
 
 
 .then((repos) => {
-    console.log(repos[0])
+    console.log(repos)
     const htmlInfo = [{
-        avatar: repos.avatar_url,
-        userName: repos.login,
-        url: repos.url,
-        blog: repos.blog,
-        repoNum: repos.public_repos,
-        followers: repos.followers,
-        following: repos.following,
-        location: repos.location,
-        //stars: repos[[1]]
+        avatar: repos[0][1].avatar_url,
+        userName: repos[0][1].login,
+        url: repos[0][1].url,
+        blog: repos[0][1].blog,
+        repoNum: repos[0][1].public_repos,
+        followers: repos[0][1].followers,
+        following: repos[0][1].following,
+        location: repos[0][1].location,
+        stars: repos[1],
+        color: repos[0][0][1]
     }]
     
     return htmlInfo
-})
+
+  })
 
 
 
@@ -85,13 +91,18 @@ inquirer
 <head>
   <meta charset="utf-8">
   <title>Profile-Generator</title>
+  <link rel="stylesheet" type="text/css" href="CSS/style.css">
+  <style>
+    body {background-color:${res[0].color}}
+
+  </style>
 </head>
 
 <body>
   <div class="wholeCard">
       <div class="imgDiv">
         
-        <img src="${res[0].avatar}" class="img">
+        <img src="${res[0].avatar}" class="img" height="200" width="200">
      
       </div>  
      
@@ -120,15 +131,7 @@ inquirer
 
           </div>
 
-          <div class="link3">
-                
-            <h3 class="locationHead">Location</h3>
-            
-            <div class="location">${res[0].location}</div>
-
-          </div>
-       
-      </div>  
+       </div>  
       
       <div class="miscDiv">
 
@@ -149,10 +152,19 @@ inquirer
 
         <div class="starDiv">
           <h3 class="starHead">Stars</h3>
-          <div class="starsnum">16</div>
+          <div class="starsnum">${res[0].stars}</div>
         </div>
       </div>
         
+      <div class="map">
+                
+      <h3 class="locationHead">Location</h3>
+      
+      <div>
+          <img src="https://maps.googleapis.com/maps/api/staticmap?center=${res[0].location}&zoom=14&size=600x200&key=AIzaSyDIEVzD85LZ_BWwmWAD2qPxTiUNGgA28YI" align="middle">
+      </div>
+
+    </div>
   </div>
 </body>
 
@@ -161,10 +173,10 @@ inquirer
      
     return html
    
-})
+  })
 
 .then((html) => {
-   // console.log(html)
+  
     fs.writeFile("index.html", html, function(err) {
 
         if (err) {
@@ -174,5 +186,5 @@ inquirer
         console.log("Success!");
       
       });
-})
+    })
 
