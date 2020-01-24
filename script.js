@@ -2,9 +2,9 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
 const GitHub = require('github-api')
+const pdf = require('html-pdf');
 
 
-var color 
 
 
 inquirer
@@ -80,11 +80,11 @@ inquirer
 
 
 
-.then((res) => {
-    
-  
-    const html = `
-    <!DOCTYPE html>
+
+
+.then(async(res) => {
+  pdf
+const hello =   `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -92,8 +92,174 @@ inquirer
   <title>Profile-Generator</title>
   <link rel="stylesheet" type="text/css" href="CSS/style.css">
   <style>
-    body {background-color:${res[0].color}}
+    body {background-color:${res[0].color};
+   height:776px;
+  }
 
+  html {
+    transform: scale(0.67);
+  }
+    @import url('https://fonts.googleapis.com/css?family=Nunito:400,700,800&display=swap');
+    .wholeCard {
+        position: relative;
+        border: 2px groove grey;
+        width: 572px;
+        padding: 10px;
+       
+        background-color: #eaecec;
+        font-family: 'Nunito', sans-serif;
+        color: #2e3942;
+        font-size: .8em;
+        /* transform: scale(0.67); */
+    }
+    
+    
+    .imgDiv {
+      
+        width: 79px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+    
+    .img {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+    }
+    
+    .userDiv {
+      
+        width: 580px;;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .userHead {
+        text-decoration: underline;
+    }
+    
+    .linkDiv {
+    
+        width: 580px;;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .link1 {
+        width: 280px;
+        float: left;
+    }
+    .link2 {
+        width: 280px;
+        float: left;
+    }
+    
+    .github {
+        border: 2px groove grey;
+        border-right: none;
+        padding: 5px;
+        box-shadow: 20px 20px 20px -13px dimgrey;
+    }
+    
+    .blog {
+        border: 2px groove grey;
+        padding: 5px;
+        box-shadow: 20px 20px 20px -13px dimgrey;
+    }
+    
+    .miscDiv {
+    
+        width: 580px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        clear: both;
+         padding: 10px;
+    }
+    
+     .repoNumDiv{
+        width: 140px;
+        float: left;
+    }
+    
+     .followersDiv{
+        width: 140px;
+        float: left;
+    }
+     .followingDiv{
+        width: 140px;
+        float: left;
+    }
+    
+     .starDiv{
+        width: 140px;
+        float: left;
+    }
+    
+    .repoNumHead {
+        border: 2px groove grey;
+        border-right: none;
+        padding: 5px;
+           box-shadow: 20px 20px 20px -13px #69696954;
+    }
+    .folowersHead {
+        border: 2px groove grey;
+        border-right: none;
+        padding: 5px;
+           box-shadow: 20px 20px 20px -13px #69696954;
+    }
+    
+    .folowingHead {
+        border: 2px groove grey;
+        border-right: none;
+        padding: 5px;
+          box-shadow: 20px 20px 20px -13px #69696954;
+    }
+    
+    .starHead {
+        border: 2px groove grey;
+    
+        padding: 5px;
+        box-shadow: 20px 20px 20px -13px #69696954;
+    }
+    
+    .map {
+        
+        width: 600px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align: center;
+        clear: both;
+        padding: 8px;
+         
+    }
+    .locationHead {
+        border: 2px groove grey;
+        border-bottom: none;
+        width: 550px;
+        padding: 5px;
+        box-shadow: 20px 20px 20px -13px dimgrey;
+    }
+    
+    .map img {
+        border: 2px groove grey;
+        box-shadow: 20px 20px 20px -13px dimgrey;
+        left:0;
+        right: 0;
+        margin: -16px auto;
+        margin-bottom: 0px;
+        margin-right: 36px;
+        width: 560px;
+    }
   </style>
 </head>
 
@@ -168,22 +334,14 @@ inquirer
 </body>
 
 </html>
-`;
-     
-    return html
-   
-  })
-
-.then((html) => {
+`
+ 
+  var html = fs.readFileSync('./index.html', 'utf8');
+  var options = { format: 'letter' };
   
-    fs.writeFile("index.html", html, function(err) {
+  pdf.create(hello, options).toFile('./Developer-Profile.pdf', function(err, res) {
+    if (err) return console.log(err);
+    console.log(res); // { filename: '/app/Developer-Profile.pdf' }
+  });
 
-        if (err) {
-          return err;
-        }
-      
-        console.log("Success!");
-      
-      });
-    })
-
+})

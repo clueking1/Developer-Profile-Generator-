@@ -20,7 +20,10 @@
     "axios": "^0.19.1",
     "fs": "0.0.1-security",
     "github-api": "^3.3.0",
+    "html-pdf": "^2.2.0",
     "inquirer": "^7.0.3",
+    "phantom-html-to-pdf": "^0.6.0",
+    "puppeteer": "^2.0.0",
     "util": "^0.12.1"
   }
 }
